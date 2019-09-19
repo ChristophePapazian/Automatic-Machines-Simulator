@@ -32,10 +32,10 @@ You need to install
     the binary word on tape 1.
 
 ## B.1 Syntax :
- All states begin with `@` and use letters, digits or underscore (`@OK` `@VERY_LONG_NAME`)
- All letters (on the tape) begin with `'`
- The special blank letter use an underscore : `'_`
- Comments begin with `#` and end with end of line.
+ - All states begin with `@` and use letters, digits or underscore (`@OK` `@VERY_LONG_NAME`)
+ - All letters (on the tape) begin with `'`
+ - The special blank letter use an underscore : `'_`
+ - Comments begin with `#` and end with end of line.
 
 ```
  NEW machine_name number_of_tapes
