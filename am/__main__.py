@@ -1,4 +1,4 @@
-# V1.1 2018/10/30 Christophe Papazian
+# V1.2 2019/09/19 Christophe Papazian
 
 import argparse
 from collections import defaultdict
@@ -16,8 +16,10 @@ class Tape:
             head, right = other.split('>')
             if len(head)!= 1 : raise ValueError
         except:
-            print("Initial tape error.")
-            sys.exit(37)
+            if initial_tape:
+                left, head, right = "", initial_tape[0], initial_tape[1:]
+            else :
+                left, head, right = "", BLANK, ""
         self.N, self.initial_tape = N, (left,head,right)
         self.N = N
 

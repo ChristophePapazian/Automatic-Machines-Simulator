@@ -1,4 +1,4 @@
-# V1.1 2018/10/30 Christophe Papazian
+# V1.2 2019/09/19 Christophe Papazian
 
 import argparse
 import curses
