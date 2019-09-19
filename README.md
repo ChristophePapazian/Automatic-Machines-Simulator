@@ -1,6 +1,7 @@
 # Automatic Machines Simulator
 
-Simulator for Turing Machines, in Python 3, by Christophe Papazian
+Simulator for Turing Machines, in Python 3, by Christophe Papazian.
+Visualisation of the simulation is done with the curses library.
 
 ### Changelog :
 V1.2 2019/09/19 : Github repository and refactorisation of the code
