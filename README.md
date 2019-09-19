@@ -33,50 +33,55 @@ You need to install
 
 ### B.1 Syntax :
  - All states begin with `@` and use letters, digits or underscore (`@OK` `@VERY_LONG_NAME`)
- - All letters (on the tape) begin with `'`
- - The special blank letter use an underscore : `'_`
+ - All letters (on the tape) begin with `'` followed by one unicode character.
+ - The special blank letter uses an underscore : `'_`
  - Comments begin with `#` and end with end of line.
 
 ```
  NEW machine_name number_of_tapes
  INIT initial_state
+ 
  # You can specify as many end states as you want. Usually one is enough.
  END end_state result [second_end_state second_result [and so on]]
+ 
  # You can specify a special end state that will be reached in case
  # an unknown transition is obtained (ERROR state by default)
  UNDEFINED undefined_state undefined_result
+ 
  # Then you specify the transitions
  FROM state # state you're in.
  read write move new_state # what you read and then write, move and new state
  read write move new_state
+ 
  # write is optional. If not specified, tapes are left unchanged.
  # new_state is optional. If not specified, the machine stays in the same state.
+
  # this is an error to specify for one state, the same letter in reading position
  # more than once
 ```
 
  exemple with a two tape machine:
 ```
- @I
+ FROM @I
  '0,'0 '0,'0 L,S @I
  '1,'0 '0,'1 L,S @I
 ```
  can be written as:
 ```
- @I
+ FROM @I
  '0,'0 L,S
  '1,'0 '0,'1 L,S
 ```
  You can also use alternatives to specify read and write.  For example:
 ```
- @I
+ FROM @I
  '1,'0 '2,'1 L,L @I
  '0,'1 '1,'1 L,L @I
  '2,'2 '0,'1 L,L @I
 ```
  can be written as:
 ```
- @I
+ FROM @I
  '1|'0|'2,'0|'1|'2 '2|'1|0,'1 L,L
 ```
 
@@ -98,7 +103,7 @@ You need to install
 
  While in simulation :
 
- simulation starts in pause mode. You need to press a key (like space) to advance one step.
+ **simulation starts in pause mode. You need to press a key (like space) to advance one step.**
 
  special keys :
  - `+`/`-` : increase or decrease speed. Typing + while in pause mode exit pause and start
