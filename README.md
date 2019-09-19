@@ -4,6 +4,7 @@ Simulator for Turing Machines, in Python 3, by Christophe Papazian
 V1.1 2018 October 30
 
 ### Changelog :
+V1.2 2019/09/19 : Github repository and refactorisation of the code
 V1.1 2018/10/30 : Added support for non color terminal and
                   refactor the code in am_curses.py
 
