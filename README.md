@@ -61,7 +61,7 @@ You need to install
  # more than once
 ```
 
- exemple with a two tape machine:
+ example with a two tape machine. Moves are `L` for left, `R` for right and `S` for stay.
 ```
  FROM @I
  '0,'0 '0,'0 L,S @I
@@ -83,7 +83,7 @@ You need to install
  can be written as:
 ```
  FROM @I
- '1|'0|'2,'0|'1|'2 '2|'1|0,'1 L,L
+ '1|'0|'2,'0|'1|'2 '2|'1|'0,'1 L,L
 ```
 
 ### B.2 Use the simulator
@@ -135,7 +135,7 @@ You need to install
   The simulator supports up to 7 tapes now. The lexer/parser supports any number of tapes.
 
   PUBLIC DOMAIN. IT'S FREE.
-  
+
   USE AT YOUR OWN RISK.
 
   Do whatever you want with the code.
