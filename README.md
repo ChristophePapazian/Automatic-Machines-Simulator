@@ -131,7 +131,11 @@ You need to install
 
  ## C.Final Notes
   If your machine doesn't stop, it will not stop. Sorry !
+
   The simulator supports up to 7 tapes now. The lexer/parser supports any number of tapes.
+
   PUBLIC DOMAIN. IT'S FREE.
+  
   USE AT YOUR OWN RISK.
+
   Do whatever you want with the code.
