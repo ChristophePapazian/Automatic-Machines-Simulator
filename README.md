@@ -14,8 +14,9 @@ You need to install
  - ply (3.11)
 
  you can easily install ply using pip with something like
+```
  % sudo -H python -m pip install ply
-
+```
 ## B. Usage
 
  Create a file containing the description of your machines.
@@ -36,43 +37,48 @@ You need to install
  The special blank letter use an underscore : `'_`
  Comments begin with `#` and end with end of line.
 
-
-> NEW machine_name number_of_tapes
-> INIT initial_state
-> # You can specify as many end states as you want. Usually one is enough.
-> END end_state result [second_end_state second_result [and so on]]
-> # You can specify a special end state that will be reached in case
-> # an unknown transition is obtained (ERROR state by default)
-> UNDEFINED undefined_state undefined_result
-> # Then you specify the transitions
-> FROM state # state you're in.
-> read write move new_state # what you read and then write, move and new state
-> read write move new_state
-> # write is optional. If not specified, tapes are left unchanged.
-> # new_state is optional. If not specified, the machine stays in the same state.
-> # this is an error to specify for one state, the same letter in reading position
-> # more than once
+```
+ NEW machine_name number_of_tapes
+ INIT initial_state
+ # You can specify as many end states as you want. Usually one is enough.
+ END end_state result [second_end_state second_result [and so on]]
+ # You can specify a special end state that will be reached in case
+ # an unknown transition is obtained (ERROR state by default)
+ UNDEFINED undefined_state undefined_result
+ # Then you specify the transitions
+ FROM state # state you're in.
+ read write move new_state # what you read and then write, move and new state
+ read write move new_state
+ # write is optional. If not specified, tapes are left unchanged.
+ # new_state is optional. If not specified, the machine stays in the same state.
+ # this is an error to specify for one state, the same letter in reading position
+ # more than once
+```
 
  exemple with a two tape machine:
-> @I
-> '0,'0 '0,'0 L,S @I
-> '1,'0 '0,'1 L,S @I
-
+```
+ @I
+ '0,'0 '0,'0 L,S @I
+ '1,'0 '0,'1 L,S @I
+```
  can be written as:
-> @I
-> '0,'0 L,S
-> '1,'0 '0,'1 L,S
-
-
+```
+ @I
+ '0,'0 L,S
+ '1,'0 '0,'1 L,S
+```
  You can also use alternatives to specify read and write.  For example:
-> @I
-> '1,'0 '2,'1 L,L @I
-> '0,'1 '1,'1 L,L @I
-> '2,'2 '0,'1 L,L @I
-
+```
+ @I
+ '1,'0 '2,'1 L,L @I
+ '0,'1 '1,'1 L,L @I
+ '2,'2 '0,'1 L,L @I
+```
  can be written as:
-> @I
-> '1|'0|'2,'0|'1|'2 '2|'1|0,'1 L,L
+```
+ @I
+ '1|'0|'2,'0|'1|'2 '2|'1|0,'1 L,L
+```
 
 ## B.2 Use the simulator
  Only the first tape can be specified. All other tapes begin empty with blank only.
@@ -82,33 +88,40 @@ You need to install
 
  Examples:
  - launch the machine TD1.1 on the tape "1100=101+111" :
-> % python -m am TD1.txt -n TD1.1 -t '1100=101+111'
-
-> % python -m am TD1.txt -n TD1.2 -t "11001100"
-> % python -m am TD1.txt -n TD1.3 -t "11001100"
-> % python -m am TD1.txt -n TD1.4 -t "aaaaaaaaaaaaaaaa"
-> % python -m am TD1.txt -n TD1.5a -t 0101100011101011100010
-
+```
+ % python -m am TD1.txt -n TD1.1 -t '1100=101+111'
+ % python -m am TD1.txt -n TD1.2 -t "11001100"
+ % python -m am TD1.txt -n TD1.3 -t "11001100"
+ % python -m am TD1.txt -n TD1.4 -t "aaaaaaaaaaaaaaaa"
+ % python -m am TD1.txt -n TD1.5a -t 0101100011101011100010
+```
 
  While in simulation :
+
  simulation starts in pause mode. You need to press a key (like space) to advance one step.
+
  special keys :
-  `+`/`-` : increase or decrease speed. Typing + while in pause mode exit pause and start
+ - `+`/`-` : increase or decrease speed. Typing + while in pause mode exit pause and start
      with a speed of 4 steps by second.
-  `p` : return to pause mode
-  `b` : pause mode and go one step backward.
-  `e` : maximum speed to quickly go to the end of the computation.
+ - `p` : return to pause mode
+ - `b` : pause mode and go one step backward.
+ - `e` : maximum speed to quickly go to the end of the computation.
+
       IT WILL CRASH IF YOUR COMPUTATION IS WITHOUT END !!!!
-  `q` : quit
-  `r` : restart
+ - `q` : quit
+ - `r` : restart
 
  The simulation returns to pause mode when an end state is reached.
  In that last case, any key will exit the simulation, except b.
 
  possible option pour am_curses.py :
->  -s : print detailed statistics at the end
->  -r : no simulation. Only result.
-
+```
+  -h, --help            show this help message and exit
+  -t TAPE, --tape TAPE  initial tape. First position inside angle brackets <.>
+  -n NAME, --name NAME  name of the machine used
+  -r, --result-only     no simulation, result only
+  -s, --statistics      print detailed statistics
+```
 
  ## C.Final Notes
   If your machine doesn't stop, it will not stop. Sorry !
