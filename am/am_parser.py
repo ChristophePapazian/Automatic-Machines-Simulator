@@ -1,4 +1,5 @@
 import ply.yacc as yacc
+import sys
 
 from am.am_lex import tokens
 
@@ -207,7 +208,13 @@ def p_writes(p):
 
 
 def p_error(p):
-    print("Syntax error in input!")
+    if p is None:
+        print("Syntax error : unexpected end of file", file=sys.stderr)
+    else:
+        print(f"Syntax error in input on token {p.type} {p.value} on line {p.lineno} at pos {p.lexpos}", file=sys.stderr)
+        if p.type == p.value == 'END':
+            print("Maybe you forgot the START statement before END ?", file=sys.stderr)
+        sys.exit(-1)
 
 
 parser = yacc.yacc()
