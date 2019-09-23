@@ -24,7 +24,7 @@ You need to install
 ## B. Usage
 
  Create a file containing the description of your machines.
- An exemple is provided with TD1.txt that contains :
+ An exemple is provided within TD1.txt (only available to students after the end of TD1) that contains :
   - machine TD1.1 : one tape. It recognizes words "a=b+c"
     with a,b and c binary numbers using 0,1.
   - machine TD1.2 : one tape. It recognizes words "ww"
@@ -133,7 +133,7 @@ You need to install
 ```
 
 ### B.3 Draw your machine
-YOU NEED TO INSTALL GRAPHWIZ FOR THIS FEATURE
+YOU NEED TO INSTALL GRAPHVIZ FOR THIS FEATURE
 
 As a new feature (on 2019/09/23), you can now draw your machines. 
 ```
