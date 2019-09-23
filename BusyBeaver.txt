@@ -1,0 +1,62 @@
+# Busy Beaver Proven Champion 2 states 2 symbols
+NEW "BB2.2" 1
+START @A
+END @H "HALT"
+FROM @A
+'_ '1 R @B
+'1 L @B
+FROM @B
+'_ '1 L @A
+'1 R @H
+
+# Busy Beaver Proven Champion 3 states 2 symbols
+NEW "BB3.2" 1
+START @A
+END @H "HALT"
+FROM @A
+'_ '1 R @B
+'1 R @H
+FROM @B
+'_  R @C
+'1 R 
+FROM @C
+'_  '1 L
+'1 L @A
+
+# Busy Beaver Proven Champion 4 states 2 symbols
+NEW "BB4.2" 1
+START @A
+END @H "HALT"
+FROM @A
+'_ '1 R @B
+'1 L @B
+FROM @B
+'_  '1 L @A
+'1 '_ L @C 
+FROM @C
+'_  '1 R @H
+'1 L @D
+FROM @D
+'_ '1 R
+'1 '_ R @A
+
+# Busy Beaver Current Champion 5 states 2 symbols
+# You should use the -r option with pypy3 because this simulation is very long !
+NEW "BB5.2" 1
+START @A
+END @H "HALT"
+FROM @A
+'_ '1 R @B
+'1 L @C
+FROM @B
+'_  '1 R @C
+'1 R  
+FROM @C
+'_  '1 R @D
+'1 '_ L @E
+FROM @D
+'_ '1 L @A
+'1  L 
+FROM @E
+'_ '1 R @H
+'1 '_ L @A
