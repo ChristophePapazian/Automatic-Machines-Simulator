@@ -5,6 +5,7 @@ Visualisation of the simulation is done with the curses library.
 
 ### Changelog :
 V1.2 2019/09/19 : Github repository and refactorisation of the code
+                  Drawing Feature added on 09/23
 
 V1.1 2018/10/30 : Added support for non color terminal and
                   refactor the code in am_curses.py
@@ -13,6 +14,7 @@ V1.1 2018/10/30 : Added support for non color terminal and
 You need to install
  - python (at least 3.6)
  - ply (3.11)
+ - graphviz version 2.40.1 (for the draw command)
 
  you can easily install ply using pip with something like
 ```
@@ -95,11 +97,11 @@ You need to install
  Examples:
  - launch the machine TD1.1 on the tape "1100=101+111" :
 ```
- % python -m am TD1.txt -n TD1.1 -t '1100=101+111'
- % python -m am TD1.txt -n TD1.2 -t "11001100"
- % python -m am TD1.txt -n TD1.3 -t "11001100"
- % python -m am TD1.txt -n TD1.4 -t "aaaaaaaaaaaaaaaa"
- % python -m am TD1.txt -n TD1.5a -t 0101100011101011100010
+ % python -m am simulate TD1.txt -n TD1.1 -t '1100=101+111'
+ % python -m am simulate TD1.txt -n TD1.2 -t "11001100"
+ % python -m am simulate TD1.txt -n TD1.3 -t "11001100"
+ % python -m am simulate TD1.txt -n TD1.4 -t "aaaaaaaaaaaaaaaa"
+ % python -m am simulate TD1.txt -n TD1.5a -t 0101100011101011100010
 ```
 
  While in simulation :
@@ -128,6 +130,18 @@ You need to install
   -r, --result-only     no simulation, result only
   -s, --statistics      print detailed statistics
 ```
+
+### B.3 Draw your machine
+YOU NEED TO INSTALL GRAPHWIZ FOR THIS FEATURE
+
+As a new feature (on 2019/09/23), you can now draw your machines. 
+```
+ % python -m am draw TD1.txt -n TD1.1
+```
+
+It will generate a pdf file (with the same filename as the machine name) from the description of the machine.
+
+
 
  ## C.Final Notes
   If your machine doesn't stop, it will not stop. Sorry !
