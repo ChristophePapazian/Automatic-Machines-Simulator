@@ -98,11 +98,11 @@ You need to install
  Examples:
  - launch the machine TD1.1 on the tape "1100=101+111" :
 ```
- % python -m am simulate TD1.txt -n TD1.1 -t '1100=101+111'
+ % python -m am simulate TD1.txt -n TD1.1 -t "1100=101+111"
  % python -m am simulate TD1.txt -n TD1.2 -t "11001100"
  % python -m am simulate TD1.txt -n TD1.3 -t "11001100"
  % python -m am simulate TD1.txt -n TD1.4 -t "aaaaaaaaaaaaaaaa"
- % python -m am simulate TD1.txt -n TD1.5a -t 0101100011101011100010
+ % python -m am simulate TD1.txt -n TD1.5a -t "0101100011101011100010"
 ```
 
  While in simulation :
