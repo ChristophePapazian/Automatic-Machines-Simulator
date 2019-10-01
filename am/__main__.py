@@ -7,6 +7,13 @@ from am.am_curses import UI_Curses
 from sys import argv, exit, stdout
 import subprocess
 
+try:
+    from am.am_arcade import UI_Arcade
+except ModuleNotFoundError:
+    def UI_Arcade(_):
+        raise ModuleNotFoundError('Install `arcade` to use the arcade ui.')
+
+
 BLANK = '_'
 
 
@@ -101,13 +108,17 @@ class Simulation:
         self.steps -= 1
 
 
-def simulation(am, tape,  result_only=False, statistics=False):
+def simulation(am, tape,  result_only=False, statistics=False, ui_engine="curses"):
     sim = Simulation(am, tape)
     if result_only:
         while sim.result is None:
             sim.step()
-    else:
+    elif ui_engine == "curses":
         UI_Curses(sim)
+    elif ui_engine == 'arcade':
+        UI_Arcade(sim).run()
+    else:
+        raise ValueError('Unknown ui engine, choose between "curses" or "arcade".')
 
     if statistics:
         res_t, res_s = defaultdict(lambda: 0), defaultdict(lambda: 0)
@@ -210,9 +221,10 @@ def main():
         parser.add_argument("-n", "--name", help="name of the machine used", default=None)
         parser.add_argument("-r", "--result-only", help="no simulation, result only", action="store_true")
         parser.add_argument("-s", "--statistics", help="print detailed statistics", action="store_true")
+        parser.add_argument("-e", "--ui-engine", help="choose the ui engine (curses, arcade)", default="curses")
         args = parser.parse_args(argv[2:])
         m = get_name(args.filename, args.name)
-        simulation(m, args.tape, result_only=args.result_only, statistics=args.statistics)
+        simulation(m, args.tape, result_only=args.result_only, statistics=args.statistics, ui_engine=args.ui_engine)
     ### DRAW
     elif args.command[:3] == "dra":
         parser = argparse.ArgumentParser()
