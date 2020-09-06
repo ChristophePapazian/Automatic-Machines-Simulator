@@ -43,7 +43,7 @@ You need to install
 
 ```
  NEW machine_name number_of_tapes
- INIT initial_state
+ START initial_state
  
  # You can specify as many end states as you want. Usually one is enough.
  END end_state result [second_end_state second_result [and so on]]
