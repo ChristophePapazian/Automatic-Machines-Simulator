@@ -1,0 +1,36 @@
+{
+    "name": "automatic-machines-simulator",
+    "displayName": "Automatic Machines Simulator",
+    "description": "Language support for Automatic Machines Simulator.",
+    "author": "João Brilhante",
+    "version": "1.0.0",
+    "keywords": [
+      "automatic",
+      "machines",
+      "simulator",
+      "language",
+      "support",
+      "syntax",
+      "highlighting"
+    ],
+    "categories": [
+        "Programming Languages"
+    ],
+    "license": "UNLICENSED",
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "contributes": {
+        "languages": [{
+            "id": "ams",
+            "aliases": ["Automatic Machines Simulator", "ams"],
+            "extensions": [".txt", ".ams", ".am"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "ams",
+            "scopeName": "source.ams",
+            "path": "./syntaxes/ams.tmLanguage.json"
+        }]
+    }
+}

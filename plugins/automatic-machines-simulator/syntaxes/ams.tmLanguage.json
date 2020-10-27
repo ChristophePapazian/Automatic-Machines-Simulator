@@ -1,0 +1,125 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Automatic Machines Simulator",
+	"scopeName": "source.ams",
+    "fileTypes": [".txt", ".ams", ".am"],
+    "patterns": [
+        {
+            "include": "#new"
+        },
+        {
+            "include": "#start"
+        },
+        {
+            "include": "#end"
+        },
+        {
+            "include": "#undefined"
+        },
+        {
+            "include": "#from"
+        },
+        {
+            "include": "#state"
+        },
+        {
+            "include": "#letter"
+        },
+        {
+            "include": "#int"
+        },
+        {
+            "include": "#string"
+        },
+        {
+            "include": "#move"
+        },
+        {
+            "include": "#comma"
+        },
+        {
+            "include": "#pipe"
+        },
+        {
+            "include": "#comment"
+        }
+    ],
+    "repository": {
+        "new": {
+            "patterns": [{
+                "name": "keyword.control.new.ams",
+                "match": "NEW"
+            }]
+        },
+        "start": {
+            "patterns": [{
+                "name": "keyword.control.start.ams",
+                "match": "START"
+            }]
+        },
+        "end": {
+            "patterns": [{
+                "name": "keyword.control.end.ams",
+                "match": "END"
+            }]
+        },
+        "undefined": {
+            "patterns": [{
+                "name": "keyword.control.undefined.ams",
+                "match": "UNDEFINED"
+            }]
+        },
+        "from": {
+            "patterns": [{
+                "name": "keyword.control.from.ams",
+                "match": "FROM"
+            }]
+        },
+        "state": {
+            "patterns": [{
+                "name": "variable.other.state.ams",
+                "match": "@[A-Za-z0-9_]+"
+            }]
+        },
+        "letter": {
+            "patterns": [{
+                "name": "constant.character.letter.ams",
+                "match": "'[^ ]"
+            }]
+        },
+        "int": {
+            "name": "constant.numeric.int.ams",
+            "match": "[1-9][0-9]*"
+        },
+        "string": {
+            "name": "string.quoted.double.ams",
+            "begin": "\"",
+            "end": "\""
+        },
+        "move": {
+            "patterns": [{
+                "name": "string.other.move.ams",
+                "match": "(L|S|R)"
+            }]
+        },
+        "comma": {
+            "patterns": [{
+                "name": "keyword.operator.comma.ams",
+                "match": ","
+            }]
+        },
+        "pipe": {
+            "patterns": [{
+                "name": "keyword.operator.pipe.ams",
+                "match": "\\|"
+            }]
+        },
+        "comment": {
+            "patterns": [{
+                "name": "comment.line.ams",
+                "begin": "#",
+                "end": "\n"
+            }]
+        }
+    }
+}
