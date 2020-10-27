@@ -4,6 +4,8 @@ Simulator for Turing Machines, in Python 3, by Christophe Papazian.
 Visualisation of the simulation is done with the curses library.
 
 ### Changelog :
+V1.3 2020/10/27 : Added plugins for syntax highlighting
+
 V1.2 2019/09/19 : Github repository and refactorisation of the code
 
                   Drawing Feature added on 09/23
@@ -12,19 +14,21 @@ V1.1 2018/10/30 : Added support for non color terminal and
                   refactor the code in am_curses.py
 
 ## A. Installation
-You need to install
+
+You need to install :
  - python (at least 3.6)
  - ply (3.11)
  - graphviz version 2.40.1 (for the draw command)
 
- you can easily install ply using pip with something like
+You can easily install ply using pip with something like :
 ```
  % sudo -H python -m pip install ply
 ```
+
 ## B. Usage
 
  Create a file containing the description of your machines.
- An exemple is provided within TD1.txt (only available to students after the end of TD1) that contains :
+ An example is provided within TD1.txt (only available to students after the end of TD1) that contains :
   - machine TD1.1 : one tape. It recognizes words "a=b+c"
     with a,b and c binary numbers using 0,1.
   - machine TD1.2 : one tape. It recognizes words "ww"
@@ -35,28 +39,29 @@ You need to install
   - machine TD1.5a : two tapes. It writes on tape 2 the binary length of
     the binary word on tape 1.
 
-### B.1 Syntax :
+### B.1 Syntax
+
  - All states begin with `@` and use letters, digits or underscore (`@OK` `@VERY_LONG_NAME`)
- - All letters (on the tape) begin with `'` followed by one unicode character.
+ - All letters (on the tape) begin with `'` followed by one Unicode character.
  - The special blank letter uses an underscore : `'_`
  - Comments begin with `#` and end with end of line.
 
 ```
  NEW machine_name number_of_tapes
  START initial_state
- 
+
  # You can specify as many end states as you want. Usually one is enough.
  END end_state result [second_end_state second_result [and so on]]
- 
+
  # You can specify a special end state that will be reached in case
  # an unknown transition is obtained (ERROR state by default)
  UNDEFINED undefined_state undefined_result
- 
+
  # Then you specify the transitions
  FROM state # state you're in.
  read write move new_state # what you read and then write, move and new state
  read write move new_state
- 
+
  # write is optional. If not specified, tapes are left unchanged.
  # new_state is optional. If not specified, the machine stays in the same state.
 
@@ -92,7 +97,7 @@ You need to install
 ### B.2 Use the simulator
  Only the first tape can be specified. All other tapes begin empty with blank only.
 
- The initial position of the head is the character between angle brackets  `<?>` on the tape. 
+ The initial position of the head is the character between angle brackets  `<?>` on the tape.
  Otherwise the head is placed on the left most character.
 
  Examples:
@@ -123,7 +128,7 @@ You need to install
  The simulation returns to pause mode when an end state is reached.
  In that last case, any key will exit the simulation, except b.
 
- possible option pour am_curses.py :
+ possible options for am_curses.py :
 ```
   -h, --help            show this help message and exit
   -t TAPE, --tape TAPE  initial tape. First position inside angle brackets <.>
@@ -133,24 +138,57 @@ You need to install
 ```
 
 ### B.3 Draw your machine
+
 YOU NEED TO INSTALL GRAPHVIZ FOR THIS FEATURE
 
-As a new feature (on 2019/09/23), you can now draw your machines. 
+As a new feature (on 2019/09/23), you can now draw your machines.
 ```
  % python -m am draw TD1.txt -n TD1.1
 ```
 
 It will generate a pdf file (with the same filename as the machine name) from the description of the machine.
 
+## C. Syntax highlighting
 
+Some plugins have been added to the [plugins](./plugin) folder to support syntax highlighting for the machine description language described above. These plugins use a [TextMate Language Grammar](https://macromates.com/manual/en/language_grammars) file to describe the syntax and tokens of the machine description language. Because TextMate bundles are widely compatible with modern text editors and IDE, it is very likely that theses plugins are compatible with your favorite text editor !
 
- ## C.Final Notes
-  If your machine doesn't stop, it will not stop. Sorry !
+### C.1 Visual Studio Code installation
 
-  The simulator supports up to 7 tapes now. The lexer/parser supports any number of tapes.
+You need to :
+ - Copy the [plugins/automatic-machines-simulator](./plugin/automatic-machines-simulator) folder inside the `.vscode/extensions` folder.
+ - Syntax highlighting will be automatically applied to files with extensions : `.txt`, `.ams` or `.am`.
+ - Enjoy :)
 
-  PUBLIC DOMAIN. IT'S FREE.
+### C.2 Atom installation
 
-  USE AT YOUR OWN RISK.
+You need to :
+ - Copy the [plugins/language-automatic-machines-simulator](./plugin/language-automatic-machines-simulator) folder inside the `.atom/packages` folder.
+ - Syntax highlighting will be automatically applied to files with extensions : `.txt`, `.ams` or `.am`.
+ - Otherwise, syntax highlighting can be manually applied by specifying the syntax to use for the current file at the bottom right corner of the window.
+ - Enjoy :)
 
-  Do whatever you want with the code.
+### C.3 JetBrains installation
+
+You need to :
+ - Navigate to `Settings > Plugins > Installed`, and make sure the `TextMate Bundles` plugin is installed and enabled. This plugin is usually already installed.
+ - Navigate to `Settings > Editor > TextMate bundles`, and click the `+` button to add a new TextMate bundle.
+ - Select the [plugins/automatic-machines-simulator](./plugin/automatic-machines-simulator) folder located within this project.
+ - Click `OK` to apply the changes.
+ - Syntax highlighting will be automatically applied to files with extensions : `.txt`, `.ams` or `.am`.
+ - Enjoy :)
+
+### C.4 Preview
+
+![Syntax highlighting preview](https://i.imgur.com/V73k42n.png)
+
+## D. Final Notes
+
+If your machine doesn't stop, it will not stop. Sorry !
+
+The simulator supports up to 7 tapes now. The lexer/parser supports any number of tapes.
+
+PUBLIC DOMAIN. IT'S FREE.
+
+USE AT YOUR OWN RISK.
+
+Do whatever you want with the code.
