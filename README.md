@@ -150,19 +150,19 @@ It will generate a pdf file (with the same filename as the machine name) from th
 
 ## C. Syntax highlighting
 
-Some plugins have been added to the [plugins](./plugin) folder to support syntax highlighting for the machine description language described above. These plugins use a [TextMate Language Grammar](https://macromates.com/manual/en/language_grammars) file to describe the syntax and tokens of the machine description language. Because TextMate bundles are widely compatible with modern text editors and IDE, it is very likely that theses plugins are compatible with your favorite text editor !
+Some plugins have been added to the [plugins](./plugins) folder to support syntax highlighting for the machine description language described above. These plugins use a [TextMate Language Grammar](https://macromates.com/manual/en/language_grammars) file to describe the syntax and tokens of the machine description language. Because TextMate bundles are widely compatible with modern text editors and IDE, it is very likely that theses plugins are compatible with your favorite text editor !
 
 ### C.1 Visual Studio Code installation
 
 You need to :
- - Copy the [plugins/automatic-machines-simulator](./plugin/automatic-machines-simulator) folder inside the `.vscode/extensions` folder.
+ - Copy the [plugins/automatic-machines-simulator](./plugins/automatic-machines-simulator) folder inside the `.vscode/extensions` folder.
  - Syntax highlighting will be automatically applied to files with extensions : `.txt`, `.ams` or `.am`.
  - Enjoy :)
 
 ### C.2 Atom installation
 
 You need to :
- - Copy the [plugins/language-automatic-machines-simulator](./plugin/language-automatic-machines-simulator) folder inside the `.atom/packages` folder.
+ - Copy the [plugins/language-automatic-machines-simulator](./plugins/language-automatic-machines-simulator) folder inside the `.atom/packages` folder.
  - Syntax highlighting will be automatically applied to files with extensions : `.txt`, `.ams` or `.am`.
  - Otherwise, syntax highlighting can be manually applied by specifying the syntax to use for the current file at the bottom right corner of the window.
  - Enjoy :)
@@ -172,7 +172,7 @@ You need to :
 You need to :
  - Navigate to `Settings > Plugins > Installed`, and make sure the `TextMate Bundles` plugin is installed and enabled. This plugin is usually already installed.
  - Navigate to `Settings > Editor > TextMate bundles`, and click the `+` button to add a new TextMate bundle.
- - Select the [plugins/automatic-machines-simulator](./plugin/automatic-machines-simulator) folder located within this project.
+ - Select the [plugins/automatic-machines-simulator](./plugins/automatic-machines-simulator) folder located within this project.
  - Click `OK` to apply the changes.
  - Syntax highlighting will be automatically applied to files with extensions : `.txt`, `.ams` or `.am`.
  - Enjoy :)
