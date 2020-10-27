@@ -1,0 +1,21 @@
+{
+    "name": "language-automatic-machines-simulator",
+    "description": "Atom language support for Automatic Machines Simulator.",
+    "author": "João Brilhante",
+    "version": "1.0.0",
+    "keywords": [
+        "automatic",
+        "machines",
+        "simulator",
+        "language",
+        "support",
+        "syntax",
+        "highlighting"
+    ],
+    "license": "UNLICENSED",
+    "engines": {
+        "atom": ">=1.0.0 <2.0.0"
+    },
+    "dependencies": {
+    }
+}
