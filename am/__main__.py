@@ -7,7 +7,7 @@ from sys import argv, exit, stdout
 
 from am.am_curses import UI_Curses
 from am.am_parser import am_from_string
-from am.turing_machine import Simulation
+from am.turing_machine import Simulation, BLANK
 
 COMMANDS = {}
 
@@ -108,6 +108,83 @@ def draw(am, file=None, **kwargs):
     outs, errs = dot_proc.communicate(input='\n'.join(DOT_DATA).encode('UTF8'))
     print(*(l for l in outs), end='')
     print(*(l for l in errs), end='')
+
+
+@cmd()
+def generate(am, **kwargs):
+    print(f"""
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+
+const char BLANK = '{BLANK}';
+
+typedef struct
+{{
+    char* buf;
+    size_t size;
+    ssize_t position;
+}} Tape;
+
+Tape tapes[{am.nb_tapes}];
+
+#define INPUT (tapes[0])
+
+char tape_read(size_t tape_num)
+{{
+    const Tape* tape = tapes[tape_num];
+    
+    if (tape.position < 0 || tape.position >= tape.size)
+        return BLANK;
+          
+    return tape.buf[tape.position];
+}}
+
+void tape_write(size_t tape_num, char symbol)
+{{
+    const Tape* tape = tapes[tape_num];
+    
+    if (tape.position < 0)
+    {{
+        size_t newsize = tape.size - tape.position + 1;
+        char* newbuf = malloc(newsize);
+        memcpy(newbuf - tape.position, tape.buf, tape.size);
+        memset(newbuf, BLANK, -tape.position);
+        free(tape.buf);
+        tape.buf = newbuf; 
+        tape.position = 0;
+        tape.size = newsize;
+    }}
+    else if (tape.position >= tape.size)
+    {{
+        size_t newsize = tape.position + 1;
+        char* newbuf = malloc(newsize);
+        memcpy(newbuf, tape.buf, tape.size);
+        memset(newbuf + tape.size, BLANK, newsize - tape.size);
+        free(tape.buf);
+        tape.buf = newbuf;
+        tape.size = newsize;
+    }}
+    
+    tape.buf[tape.position] = symbol;
+}}
+    
+int main()
+{{
+    for (int i = 1; i < {am.nb_tapes}; i++)
+    {{
+        char* buf = malloc(1);
+        *buf = BLANK;
+        tapes[i] = (Tape){{ .buf = buf, .size = 1, .position = 0 }};
+    }}
+    
+    getline(&INPUT.buf, &INPUT.size, stdin);
+    
+    INPUT.buf[INPUT.size] = BLANK;
+    
+    
+}}
+""")
 
 
 def main():
