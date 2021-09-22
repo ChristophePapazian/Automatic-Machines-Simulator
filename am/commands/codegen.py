@@ -9,7 +9,10 @@ from am.turing_machine import BLANK
     ("-i", "--input", "fill the first tape with standard input", None, "store_true"),
     ("-v", "--verbose", "display status information at each iteration", None, "store_true"),
 )
-def generate(am, input, verbose, **kwargs):
+def codegen(am, input, verbose, **kwargs):
+    """
+    Generates a C implementation of an automatic machine.
+    """
     states = {state: (i, transitions) for i, (state, transitions) in enumerate(am.transitions.items())}
     end_states = {state: (-1 - i, message) for i, (state, message) in enumerate(am.end_states.items())}
     all_states = {**states, **end_states}
