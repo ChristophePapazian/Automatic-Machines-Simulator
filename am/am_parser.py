@@ -211,7 +211,7 @@ def p_error(p):
     if p is None:
         print("Syntax error : unexpected end of file", file=sys.stderr)
     else:
-        print(f"Syntax error in input on token {p.type} {p.value} on line {p.lineno} at pos {p.lexpos}", file=sys.stderr)
+        print(f"Syntax error in input on token {p.type} {p.value} on line {p.lineno} at pos {p.lexpos-p.lexer.linestart}", file=sys.stderr)
         if p.type == p.value == 'END':
             print("Maybe you forgot the START statement before END ?", file=sys.stderr)
         sys.exit(-1)
