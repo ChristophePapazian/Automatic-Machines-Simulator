@@ -6,15 +6,9 @@ from sys import stdout
 from am.commands import cmd
 
 
-@cmd()
-def draw(am, file=None, **kwargs):
-    """
-        Create a pdf file from an automatic machine.
-        Requirement : the dot program from GraphViz
-        """
+def get_dot(am):
     DOT_DATA = []
     D = {-1: "L", 0: "S", 1: "R"}
-    if file is None: file = stdout
     DOT_DATA.append("digraph {")
     DOT_DATA.append(" graph [mclimit = 100 rankdir = LR]")
     # print(' edge [lblstyle="sloped"];')
@@ -51,9 +45,27 @@ def draw(am, file=None, **kwargs):
         options = f'fillcolor="{color}"'
         DOT_DATA.append(f'"{s}" [style="filled" {options} shape=doubleoctagon];')
     DOT_DATA.append("}")
+    return "\n".join(DOT_DATA)
+
+
+@cmd()
+def graph(am, **kwargs):
+    """
+    Generates a dot graph from an automatic machine.
+    """
+    print(get_dot(am))
+
+
+@cmd()
+def draw(am, **kwargs):
+    """
+    Create a pdf file from an automatic machine.
+    Requirement : the dot program from GraphViz
+    """
+    DOT_DATA = get_dot(am)
     dot_proc = subprocess.Popen(['dot', '-Tpdf', '-o' + am.name + '.pdf'], stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
-    outs, errs = dot_proc.communicate(input='\n'.join(DOT_DATA).encode('UTF8'))
+    outs, errs = dot_proc.communicate(input=DOT_DATA.encode('UTF8'))
     print(*(l for l in outs), end='')
     print(*(l for l in errs), end='')
