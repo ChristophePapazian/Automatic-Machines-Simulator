@@ -89,6 +89,8 @@ void display(state_t current)
     fflush(stdout);
 }}
 
+#define SHOW_STEP() fprintf(stderr, "Step count: %zu\\n", step)
+
 int main()
 {{
     for (int i = 0; i < {am.nb_tapes}; i++)
@@ -118,7 +120,7 @@ int main()
     print(f"""
     state_t current = {all_states[am.initial_state][0]};
     
-    while (1)
+    for (size_t step = 0; ; step++)
     {{""")
     if verbose:
         print(f"""
@@ -132,6 +134,7 @@ int main()
         print(f"""
         case {number}: // {state}
             display(current);
+            SHOW_STEP();
             fprintf(stderr, "END STATE '%s': %s\\n", {json.dumps(state)}, {json.dumps(message)});
             return EXIT_SUCCESS;
         """)
@@ -150,12 +153,14 @@ int main()
         print(f"""
             else
             {{
+                SHOW_STEP();
                 goto ERROR;
             }}
             
             break;""")
     print(f"""
         default:
+            SHOW_STEP();
             fprintf(stderr, "UNKNOWN STATE '%d'\\n", current);
             return EXIT_FAILURE;
         }}
