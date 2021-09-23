@@ -1,3 +1,6 @@
+// buffer size for input read
+#define BUF_SIZE 256
+
 typedef struct
 {
     char* buf;
@@ -64,4 +67,25 @@ void tape_init(size_t tape_num)
 void tape_print(size_t tape_num)
 {
     printf("%.*s\n", (int) tapes[tape_num].size, tapes[tape_num].buf);
+}
+
+void tape_read_stdin()
+{
+    size_t input_size = 0;
+    size_t current_size = BUF_SIZE;
+    char* input_buf = malloc(current_size);
+    memset(input_buf, BLANK, current_size);
+    size_t read;
+    while ((read = fread(input_buf + input_size, 1, current_size - input_size, stdin)) > 0)
+    {
+        input_size += read;
+        if (current_size - input_size < 16)
+        {
+            input_buf = realloc(input_buf, current_size += BUF_SIZE);
+        }
+    }
+
+    input_buf = realloc(input_buf, input_size);
+
+    tapes[0] = (Tape){ .buf = input_buf, .size = input_size, .position = 0 };
 }

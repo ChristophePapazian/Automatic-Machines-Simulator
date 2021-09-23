@@ -60,3 +60,17 @@ void tape_print(size_t tape_num)
 
     putchar('\n');
 }
+
+void tape_read_stdin()
+{
+    Tape original = tapes[0];
+
+    char c;
+    while (!feof(stdin) && (c = fgetc(stdin)) != EOF)
+    {
+        tape_write(0, c);
+        tape_right(0);
+    }
+
+    tapes[0] = original;
+}

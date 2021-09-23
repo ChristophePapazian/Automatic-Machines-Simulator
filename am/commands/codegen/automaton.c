@@ -5,21 +5,20 @@
 
 const char BLANK = '{{BLANK}}';
 
-{% if linked %}
-{% include "list_linked.c" %}
-{% else %}
+{% if linear %}
 {% include "list_linear.c" %}
+{% else %}
+{% include "list_linked.c" %}
 {% endif %}
 
 typedef int state_t;
 
-#define BUF_SIZE 256
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-void display(state_t current)
+void display(size_t step, state_t current)
 {
-    printf("Current state : %d\n", current);
+    printf("Step %zu, current state : %d\n", step, current);
     for (size_t num = 0; num < {{am.nb_tapes}}; num++)
     {
         printf("Tape %2zu : ", num);
@@ -38,23 +37,7 @@ int main()
     }
 
     {% if input %}
-    size_t input_size = 0;
-    size_t current_size = BUF_SIZE;
-    char* input_buf = malloc(current_size);
-    memset(input_buf, BLANK, current_size);
-    size_t read;
-    while ((read = fread(input_buf + input_size, 1, current_size - input_size, stdin)) > 0)
-    {
-        input_size += read;
-        if (current_size - input_size < 16)
-        {
-            input_buf = realloc(input_buf, current_size += BUF_SIZE);
-        }
-    }
-
-    input_buf = realloc(input_buf, input_size);
-
-    tapes[0] = (Tape){ .buf = input_buf, .size = input_size, .position = 0 };
+    tape_read_stdin();
     {% endif %}
 
     state_t current = {{all_states[am.initial_state][0]}};
@@ -62,7 +45,7 @@ int main()
     for (size_t step = 0; ; step++)
     {
         {% if verbose %}
-        display(current);
+        display(step, current);
         {% endif %}
 
         char tape_values[] = { {% for tape in range(am.nb_tapes) %} tape_read({{tape}}), {% endfor %} };
@@ -71,9 +54,8 @@ int main()
 
     {% for state, (number, message) in end_states.items() %}
         case {{number}}: // {{state}}
-            display(current);
-            SHOW_STEP();
             fprintf(stderr, "END STATE '%s': %s\n", {{json.dumps(state)}}, {{json.dumps(message)}});
+            display(step, current);
             return EXIT_SUCCESS;
     {% endfor %}
 
@@ -89,21 +71,18 @@ int main()
         {% endfor %}
             else
             {
-                SHOW_STEP();
-                goto ERROR;
+                fprintf(stderr, "MISSING TRANSITION FROM STATE '%d'\n", current);
+                display(step, current);
+                return EXIT_FAILURE;
             }
 
             break;
     {% endfor %}
 
         default:
-            SHOW_STEP();
             fprintf(stderr, "UNKNOWN STATE '%d'\n", current);
+            display(step, current);
             return EXIT_FAILURE;
         }
     }
-
-ERROR:
-    fprintf(stderr, "MISSING TRANSITION FROM STATE '%d'\n", current);
-    return EXIT_FAILURE;
 }
