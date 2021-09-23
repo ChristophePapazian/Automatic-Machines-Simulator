@@ -24,27 +24,30 @@ def main():
 
     args = main_parser.parse_args(argv[1:])
 
-    def get_name(filename, name):
+    def find_machine(filename, name):
         with open(filename, 'r') as input:
             lm = am_from_string(input.read())
-            if name:
-                try:
-                    return [m for m in lm if m.name == name][-1]
-                except IndexError:
-                    print(f"no {name} machine found. Names available are :")
-                    for m in lm:
-                        print(m.name)
-                    exit(1)
-            elif len(lm) == 1:
-                return lm[0]
-            else:
-                print(f"{len(lm)} machines found. Names available are (use -n name):")
+
+            def list_machines():
+                print("Available machines (use -n name):")
                 for m in lm:
                     print(
                         f"{m.name:12} with {m.nb_tapes} tape{'s,' if m.nb_tapes > 1 else ', '} {len(m.transitions):3} states and {len(m.end_states):2} final state{'s.' if len(m.end_states) > 1 else '.'}")
                 exit(1)
 
-    m = get_name(args.filename, args.name)
+            if name:
+                try:
+                    return [m for m in lm if m.name == name][-1]
+                except IndexError:
+                    print(f"No machine with name '{name}' found.")
+                    list_machines()
+            elif len(lm) == 1:
+                return lm[0]
+            else:
+                print(f"{len(lm)} machines found.")
+                list_machines()
+
+    m = find_machine(args.filename, args.name)
     args.func(m, args=args, **vars(args))
 
 
