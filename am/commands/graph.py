@@ -1,7 +1,6 @@
 # coding: utf-8
 import subprocess
 from collections import defaultdict
-from sys import stdout
 
 from am.commands import cmd
 
