@@ -8,7 +8,7 @@ def update_cst(d1, d2, s):
     if isinstance(d2, dict):
         for r in d2:
             if r in d1:
-                raise ValueError('Transition already defined state @%s read \'%s' % (s, r))
+                raise ValueError(f'Transition already defined state @{s} read \'{r}')
             d1[r] = d2[r]
     elif isinstance(d2, list):
         for r, t in d2:

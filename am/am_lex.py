@@ -77,7 +77,7 @@ def t_ignore_comment(t):
 
 # Error handling rule
 def t_error(t):
-    print("Illegal character '%s' at line %d" % (t.value[0], lexer.lineno))
+    print(f"Illegal character '{t.value[0]}' at line {lexer.lineno}")
     t.lexer.skip(1)
 
 
