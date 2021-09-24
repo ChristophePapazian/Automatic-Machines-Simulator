@@ -64,7 +64,7 @@ int main()
         {% for read, (write, moves, next_state) in transitions.items() %}
             {{"else " if loop.index0 != 0 else ""}}if (1 {% for value in read %} && tape_values[{{loop.index0}}] == '{{value}}' {% endfor %})
             {
-                {% for value in write %} tape_write({{loop.index0}}, '{{value}}'); {% endfor %}
+                {% for rval, wval in zip(read, write) %} {% if rval != wval %} tape_write({{loop.index0}}, '{{wval}}'); {% endif %} {% endfor %}
                 {% for delta in moves %} {% if delta == 1 %} tape_right({{loop.index0}}); {% elif delta == -1 %} tape_left({{loop.index0}}); {% endif %} {% endfor %}
                 current = {{all_states[next_state][0]}};
             }

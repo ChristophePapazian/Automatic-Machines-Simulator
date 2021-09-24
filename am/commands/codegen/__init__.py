@@ -25,6 +25,7 @@ def codegen(am, input, verbose, linear, **kwargs):
         loader=PackageLoader("am.commands", "codegen"),
         autoescape=select_autoescape()
     )
+    env.globals.update(globals())
     tm = env.get_template("automaton.c")
-    print(tm.render(**locals(), **globals()))
+    print(tm.render(**locals(), zip=zip))
 
