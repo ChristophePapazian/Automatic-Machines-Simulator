@@ -5,10 +5,10 @@
 
 const char BLANK = '{{BLANK}}';
 
-{% if linear %}
-{% include "list_linear.c" %}
-{% else %}
+{% if linked %}
 {% include "list_linked.c" %}
+{% else %}
+{% include "list_linear.c" %}
 {% endif %}
 
 typedef int state_t;
