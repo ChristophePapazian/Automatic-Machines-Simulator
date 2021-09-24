@@ -38,11 +38,8 @@ void tape_write(size_t tape_num, char symbol)
     else if (tape->position >= tape->size)
     {
         size_t newsize = tape->position + 1;
-        char* newbuf = malloc(newsize);
-        memcpy(newbuf, tape->buf, tape->size);
-        memset(newbuf + tape->size, BLANK, newsize - tape->size);
-        free(tape->buf);
-        tape->buf = newbuf;
+        tape->buf = realloc(tape->buf, newsize);
+        memset(tape->buf + tape->size, BLANK, newsize - tape->size);
         tape->size = newsize;
     }
 
