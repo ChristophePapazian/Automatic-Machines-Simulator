@@ -1,8 +1,7 @@
-# V1.2 2019/09/19 Christophe Papazian
-
-import argparse
+# coding: utf-8
 import curses
 from time import sleep
+
 
 class UI_Curses:
     def __init__(self, sim):
@@ -110,4 +109,3 @@ class UI_Curses:
                     else:
                         delay = 0
                 self.sim.step()
-
